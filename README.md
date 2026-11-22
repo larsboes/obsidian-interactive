@@ -1,8 +1,8 @@
-# Interactive figures in Obsidian and Sjel notes
+# Interactive
 
-Read this when a figure belongs inside an Obsidian or Sjel note, whichever skill or hand drew
-it (the upstream Anatomy skill, `upstreams.toml` `[anatomy]`, is one source). Interactive
-figures are the normal output in both.
+An Obsidian plugin that mounts interactive HTML figures, local charts and link cards inside
+notes. It works offline and does not depend on Learn or pi. A figure can come from any skill or
+from hand-written HTML. The [Anatomy](https://github.com/wheresryan22/anatomy) skill is one source.
 
 ## Obsidian: embed the interactive figure in the note
 
@@ -93,22 +93,17 @@ Markdown links or ledger reference next to it as a fallback.
 Run `bun run check` to test and build. `bun run deploy` installs into the local vault
 (`OBSIDIAN_VAULT` can override the destination). Reload Interactive in Obsidian.
 
-## Sjel notes
-
-The GPUI note editor does not currently resolve interactive figure embeds or maintain a figure
-registry. Keep interactive figure assets in Obsidian notes through this plugin; do not treat the
-retired Svelte dashboard's embed syntax as a Sjel contract.
-
 ## Placement and verification
 
-Resolve the active vault and read its current contract through the Obsidian skill before writing
-notes or assets. Update the owning note; use its permitted asset location and link syntax.
-For Sjel, use the Sjel skill to resolve the owning component, documentation or capability.
-Keep reusable source in Sjel and private values and machine paths in the overlay or vault.
-Local integration never authorizes publishing a private figure to the community gallery.
+Read the vault's own rules before writing notes or assets. Update the owning note and use its
+permitted asset location and link syntax. Local integration never authorizes publishing a private figure to the community gallery.
 
 Run the figure's geometry and visual checks. Verify the embed in its actual note at the note's
 width, including pointer and keyboard interaction, theme changes, reduced motion, navigation away
 and back, and multiple copies. Check that local asset paths resolve. Check a static export only
 when one is requested. State which host rendering was not verified instead of treating a browser
-preview as proof that an Obsidian or Sjel embed works.
+preview as proof that an Obsidian embed works.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
