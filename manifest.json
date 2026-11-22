@@ -1,9 +1,9 @@
 {
   "id": "interactive",
-  "name": "Interactive (Sjel)",
+  "name": "Interactive",
   "version": "0.4.0",
   "minAppVersion": "1.4.0",
-  "description": "Render interactive HTML, Canvas, WebGL and Anatomy figures natively or inside sandboxed iframes. Developed in Sjel.",
+  "description": "Render interactive HTML, Canvas, WebGL and Anatomy figures natively or inside sandboxed iframes, plus local charts and link cards.",
   "author": "Lars Boes",
   "isDesktopOnly": false
 }
