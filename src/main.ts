@@ -4,6 +4,7 @@ import { collectThemeVars } from './theme';
 import { buildSrcdoc } from './iframe-renderer';
 import { disposeNativeElement, renderNativeElement, updateNativeTheme, NativeRenderEntry } from './native-renderer';
 import { MESSAGE_TYPE, MAX_HEIGHT } from './types';
+import { InteractiveView } from './views';
 
 interface FrameEntry {
   iframe: HTMLIFrameElement;
@@ -27,6 +28,10 @@ export default class HtmlEmbedPlugin extends Plugin {
       const child = new MarkdownRenderChild(el);
       ctx.addChild(child);
       this.renderNativeBlock(source, el, ctx, child);
+    });
+
+    this.registerMarkdownCodeBlockProcessor('interactive-view', (source, el, ctx) => {
+      ctx.addChild(new InteractiveView(el, this.app, source, ctx.sourcePath));
     });
 
     // Listen for iframe height reports

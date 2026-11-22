@@ -2,6 +2,9 @@
   "name": "interactive",
   "private": true,
   "scripts": {
+    "test": "bun test tests",
+    "check": "bun run test && bun run build",
+    "capture-link": "bun tools/capture-link.ts",
     "build": "bun build src/main.ts --target browser --format cjs --external obsidian --external child_process --outfile dist/main.js",
     "deploy": "bun run build && V=\"${OBSIDIAN_VAULT:-$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault}\" && mkdir -p \"$V/.obsidian/plugins/interactive\" && cp dist/main.js manifest.json styles.css \"$V/.obsidian/plugins/interactive/\""
   }

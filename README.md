@@ -33,6 +33,66 @@ and asset-loading contract first; native and iframe mode are different renderers
 A static SVG or PNG is an optional export for print, sharing or a client without the plugin.
 It does not replace the interactive note embed by default.
 
+## Local charts and link cards
+
+Use an `interactive-view` fence for read-only views that need no HTML or user script.
+The legacy `interactive` and `html-embed` modes are unchanged and are for trusted figures,
+not for unreviewed generated content. This plugin has no dependency on Learn or Pi.
+
+````markdown
+```interactive-view
+view: chart
+data: ./Journeys/2026.csv
+x: date
+y: price_eur
+group: month
+label: Ticket cost
+unit: EUR
+count: Journey legs
+```
+````
+
+`data:` accepts an exact vault path or an explicit `./` path relative to the note.
+CSV and flat JSON arrays are supported. Without `group:`, each row is a bar and labels
+must be unique. `group: month` takes ISO dates, sums the values, and optionally adds a
+count measure. `unit: EUR` sums integer cents and formats euro values. The chart updates
+when its local data changes. Limits: 1 MiB per file, 10,000 records, 120 bars.
+
+````markdown
+```interactive-view
+view: links
+table: Proposals
+link: Link
+name: Event
+details: Date, Where
+layout: gallery
+data: ./preview-cache.json
+```
+````
+
+For `table:`, give the exact heading over the note's pipe table. `link:` and `name:` pick
+columns (default Link and Title). `details:` picks up to six more columns. Rows without an
+HTTP(S) link stay in the original table and do not get a card. Choose `compact` (default)
+or `gallery`. With no `table:`, `data:` is a standalone list of cards. With both, the
+optional JSON enriches existing links by URL without replacing the note's facts:
+
+```json
+[
+  { "url": "https://example.org/page", "title": "Optional title",
+    "description": "Optional excerpt", "image": "./cover.webp", "captured": "2026-11-22" }
+]
+```
+
+Only a vault-local raster thumbnail is used; missing or remote images get a placeholder.
+For a page already saved locally, `bun run capture-link https://example.org/page saved.html ./cover.webp`
+prints a one-entry cache. It never requests the page, executes its scripts or saves its remote
+images. Copy the item into the cache when useful. The captured date is not the page's publication
+or event date. The view never fetches metadata and does not change the source. Keep the plain
+Markdown links or ledger reference next to it as a fallback.
+
+Run `bun run check` to test and build. `bun run deploy` installs into the local vault
+(`OBSIDIAN_VAULT` can override the destination). Reload Interactive in Obsidian.
+
 ## Sjel notes
 
 The GPUI note editor does not currently resolve interactive figure embeds or maintain a figure
